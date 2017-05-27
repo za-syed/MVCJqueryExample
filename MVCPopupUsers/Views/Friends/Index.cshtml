@@ -1,0 +1,78 @@
+﻿@model MVCPopupUsers.Models.PagedList<MVCPopupUsers.Models.Friend>
+@{
+    ViewBag.Title = "Friends List";
+}
+
+<h1>Friends List</h1>
+<div class="well">
+    @using (Html.BeginForm("index", null, FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="Search by Frist, Middle or Last Name" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go</button>
+                    </span>
+
+                </div>
+            </div>
+            <div class="pull-right col-lg-1">
+                <a class="btn btn-success" data-modal="" href="/Friends/Create" id="btnCreate">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top:17px;">
+            @{
+        var grid = new WebGrid(
+                        canPage: true,
+                        rowsPerPage: Model.PageSize,
+                        canSort: true,
+                        ajaxUpdateContainerId: "grid");
+
+        grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+        grid.Pager(WebGridPagerModes.All);
+
+        @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+            fillEmptyRows: false,
+            tableStyle: "table table-bordered table-hover",
+            mode: WebGridPagerModes.All,                 
+            columns: grid.Columns(
+            grid.Column("FriendId", "ID", style:"col-lg-1"),
+              grid.Column("FirstName", "First Name", style: "col-lg-2"),
+                   grid.Column("MiddleName", "Middle Name", style: "col-lg-2"),
+                        grid.Column("LastName", header: "Last Name", style: "col-lg-2"),
+                             grid.Column("MaritalStatus", header: "Marital Status", style: "col-lg-2"),
+                             grid.Column("Gender", header: "Gender", style: "col-lg-1"),
+              grid.Column(header: "Action", canSort: false, style: "action",
+                format: @<text>
+                @Html.Raw("<a data-modal='' href='/friends/details/" + item.FriendId + "' id='" + item.FriendId + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/friends/edit/" + item.FriendId + "' id='" + item.FriendId + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/friends/delete/" + item.FriendId + "' id='" + item.FriendId + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                </text>)
+                         ));
+            }
+
+
+        </div>
+    }
+</div>
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/scripts/appjs/friend.js")
+}

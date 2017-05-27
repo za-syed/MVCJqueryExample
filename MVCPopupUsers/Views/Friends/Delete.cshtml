@@ -1,0 +1,108 @@
+﻿@model MVCPopupUsers.Models.Friend
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Unfriend Selected Friend</h3>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+                <h3>
+                    <span class="label label-danger">
+                        Are you sure to delete this friend?
+                    </span>
+                </h3>
+            </div>
+        </div>     
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(m => Model.FirstName, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control required", @disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => Model.MiddleName, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => Model.LastName, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control required", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => Model.MaritalStatus, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.MaritalStatus, new SelectList(Enum.GetValues(typeof(MVCPopupUsers.Models.MaritalStatuses))),
+                    new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => Model.Gender, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    <label class="radio-inline">@Html.RadioButtonFor(m => m.Gender, "Male", new { @class = "required", @disabled="disabled" }) Male</label>
+                    <label class="radio-inline">@Html.RadioButtonFor(m => m.Gender, "Female", new { @class = "required", @disabled = "disabled" }) Female</label>     
+                    <div>
+                        @Html.ValidationMessageFor(m => m.Gender)
+                    </div>
+                </div>
+            </div>        
+            <div class="form-group">
+                @Html.LabelFor(m => Model.Address, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control required" })
+                    <div>
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => Model.City, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.City, new { @class = "form-control required" })
+                    <div>
+                        @Html.ValidationMessageFor(m => m.City)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => Model.State, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @*@Html.TextBoxFor(m => m.State, new { @class = "form-control required" })*@
+                    @Html.DropDownListFor(m => m.State, new SelectList(@ViewBag.states, "StateCode", "StateDescription"),
+                    "Select a state",
+                    new { @class = "form-control" })
+                    <div>
+                        @Html.ValidationMessageFor(m => m.State)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => Model.Zip, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Zip, new { @class = "form-control required" })
+                    <div>
+                        @Html.ValidationMessageFor(m => m.Zip)
+                    </div>
+                </div>
+            </div>              
+       
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">No</button>
+        <input class="btn btn-danger" type="submit" value="Yes" />
+    </div>
+}

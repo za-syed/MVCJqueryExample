@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FluentValidation</id>
+    <version>7.0.1</version>
+    <title>FluentValidation</title>
+    <authors>Jeremy Skinner</authors>
+    <owners>Jeremy Skinner</owners>
+    <licenseUrl>https://github.com/JeremySkinner/FluentValidation/blob/master/License.txt</licenseUrl>
+    <projectUrl>http://github.com/JeremySkinner/fluentvalidation</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/JeremySkinner/FluentValidation/master/fv-small.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A validation library for .NET that uses a fluent interface to construct strongly-typed validation rules.</description>
+    <summary />
+    <releaseNotes>FluentValidation 7.0 is a major release that contains several breaking changes, especially with Localization. If you use FluentValidation's support for localization please read the updated documentation: https://github.com/JeremySkinner/FluentValidation/wiki/f.-Localization
+
+* Localization rewrite to not require satellite assemblies   
+* Switch to Netstandard based build process
+* Assemblies are now signed
+* Fix - Possible NullReferenceException in the AspNetCore clientside integration for length validators
+* Fix - Don't clear the ModelValidatorProviders collection by default in the AspNetCore integration (added new ClearValidatorProviders property to control this behaviour)
+* Fix - Ensure IValidatorFactory is resolved from request scope in asp.net core integration
+* Fix - Property getter that throws an exception causes validation to fail in WebApi integration
+* Fix - Issue in AspNetCore integration where we tried to resolve a collection validator in some situations where a class validator should be used
+* Fix - Incorrect clientside validation attributes generated for email validator and credit card validator in the asp.net core integration
+* Fix - Child model validation now works in webapi integration
+* Improve splitting of PascalCased property names to support uppercase character sequences
+* ValidationResult.ErrorCode property now always returns the type of the PropertyValidator that generated the message, unless it's been explicitly overriden
+
+   Full release notes can be found at https://github.com/JeremySkinner/FluentValidation/blob/master/Changelog.txt</releaseNotes>
+    <copyright>Copyright (c) Jeremy Skinner 2008-2017</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5" />
+      <group targetFramework="Unsupported0.0">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
